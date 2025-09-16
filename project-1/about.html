@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Node.js - About</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #0f172a;
+      --secondary: #64748b;
+      --accent: #22c55e;
+      --bg: #0a0f1e;
+      --white: #ffffff;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      --transition: all 0.3s ease-in-out;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(12px);
+      padding: 1rem 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo a {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      position: relative;
+      font-weight: 600;
+      color: var(--white);
+      transition: var(--transition);
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--accent);
+    }
+
+    nav a.active::after {
+      content: "";
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .toggle-btn {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--white);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 160px 2rem 100px;
+      text-align: center;
+      max-width: 850px;
+      margin: auto;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      margin-bottom: 1rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #22c55e, #a3e635);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--secondary);
+      margin-bottom: 2rem;
+    }
+
+    .cta-button {
+      background: var(--accent);
+      color: var(--white);
+      padding: 0.9rem 2.2rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 12px 25px rgba(34, 197, 94, 0.6);
+    }
+
+    /* About Section */
+    .about-content {
+      max-width: 1200px;
+      margin: auto;
+      padding: 5rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .about-text h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: var(--white);
+    }
+
+    .about-text p {
+      color: var(--secondary);
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+    }
+
+    .about-image img {
+      width: 100%;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .stats {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .stat-item {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1.8rem;
+      text-align: center;
+      border-radius: var(--radius);
+      transition: var(--transition);
+    }
+
+    .stat-item:hover {
+      background: rgba(34, 197, 94, 0.15);
+      transform: translateY(-6px);
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--secondary);
+    }
+
+    /* Team */
+    .team {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title h2 {
+      font-size: 2rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title p {
+      color: var(--secondary);
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+
+    .team-member {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius);
+      padding: 2rem;
+      text-align: center;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+    }
+
+    .team-member:hover {
+      transform: translateY(-8px) scale(1.02);
+      background: rgba(34, 197, 94, 0.08);
+    }
+
+    .member-image {
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 1rem;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--accent);
+    }
+
+    .member-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .member-info h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.3rem;
+      color: var(--white);
+    }
+
+    .member-info p {
+      color: var(--secondary);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .social-links a {
+      color: var(--secondary);
+      transition: var(--transition);
+      font-size: 1.2rem;
+    }
+
+    .social-links a:hover {
+      color: var(--accent);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        background: rgba(15, 23, 42, 0.9);
+        padding: 1.5rem;
+        border-radius: var(--radius);
+        margin-top: 1rem;
+      }
+
+      nav.show {
+        display: flex;
+      }
+
+      .toggle-btn {
+        display: block;
+      }
+
+      .about-content {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-container">
+      <div class="logo"><a href="/">Node<span>.Js</span></a></div>
+      <nav id="nav">
+        <a href="/">Home</a>
+        <a href="/about" class="active">About</a>
+        <a href="/services">Services</a>
+        <a href="/blog">Blog</a>
+        <a href="/contact">Contact</a>
+      </nav>
+      <div class="toggle-btn" id="toggleBtn"><i class="fas fa-bars"></i></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>About Node.js</h1>
+      <p>Discover how Node.js powers the modern web with blazing performance, scalability, and real-time capabilities.</p>
+      <a href="#learn-more" class="cta-button">Learn More</a>
+    </section>
+
+    <section class="about-content" id="learn-more">
+      <div class="about-text">
+        <h2>Our Technology</h2>
+        <p>Node.js is an open-source, cross-platform JavaScript runtime environment that executes JavaScript code outside a web browser. It allows developers to build fast, scalable network applications with ease.</p>
+        <p>Our team leverages Node.js for building efficient, event-driven, and real-time applications that power startups and enterprises worldwide.</p>
+
+        <div class="stats">
+          <div class="stat-item">
+            <div class="stat-number">10M+</div>
+            <div class="stat-label">Downloads</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Satisfaction</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Projects</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-image">
+        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Node.js development">
+      </div>
+    </section>
+
+    <section class="team">
+      <div class="section-title">
+        <h2>Our Core Team</h2>
+        <p>Meet the passionate individuals behind our Node.js expertise</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-member">
+          <div class="member-image">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ryan Dahl">
+          </div>
+          <div class="member-info">
+            <h3>Ryan Dahl</h3>
+            <p>Node.js Creator</p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-github"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="team-member">
+          <div class="member-image">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson">
+          </div>
+          <div class="member-info">
+            <h3>Sarah Johnson</h3>
+            <p>Senior Developer</p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-github"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="team-member">
+          <div class="member-image">
+            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Michael Chen">
+          </div>
+          <div class="member-info">
+            <h3>Michael Chen</h3>
+            <p>DevOps Engineer</p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-github"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const toggleBtn = document.getElementById("toggleBtn");
+    const nav = document.getElementById("nav");
+    toggleBtn.addEventListener("click", () => nav.classList.toggle("show"));
+    document.querySelectorAll("nav a").forEach(link =>
+      link.addEventListener("click", () => nav.classList.remove("show"))
+    );
+  </script>
+</body>
+
+</html>

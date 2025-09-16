@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edit Book - Library Manager</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #232526, #414345);
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      background:  linear-gradient(90deg, #43e97b, #38f982); 
+      padding: 20px 50px;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.4);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid rgba(255,255,255,0.2);
+    }
+
+    header .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 12px rgba(0,0,0,0.7);
+    }
+
+    header nav a {
+      text-decoration: none;
+      color: #fff;
+      margin-left: 25px;
+      font-weight: 600;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    header nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 100%;
+      height: 3px;
+      background: #ffca28;
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+      transform-origin: right;
+    }
+
+    header nav a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    header .btn-add {
+      background: linear-gradient(45deg, #ff416c, #ff4b2b);
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 50px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    header .btn-add:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(255,65,108,0.6);
+    }
+
+    /* Form Section */
+    .form-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 80px 20px;
+    }
+
+    .form-box {
+      background: rgba(255,255,255,0.08);
+      padding: 50px 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+      max-width: 600px;
+      width: 100%;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .form-box h1 {
+      margin-bottom: 30px;
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+      color: #ffca28;
+      text-shadow: 1px 1px 12px rgba(0,0,0,0.7);
+    }
+
+    .form-box label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #eee;
+    }
+
+    .form-box input,
+    .form-box select {
+      width: 100%;
+      padding: 14px 16px;
+      margin-bottom: 22px;
+      border-radius: 10px;
+      border: none;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    .form-box input:focus,
+    .form-box select:focus {
+      background: rgba(255,255,255,0.25);
+      box-shadow: 0 0 10px #ffca28;
+    }
+
+    .form-box input[disabled] {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .form-box button {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(45deg, #11998e, #38ef7d);
+      color: #1f1c2c;
+      border: none;
+      border-radius: 50px;
+      font-weight: bold;
+      font-size: 17px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 8px 20px rgba(56,239,125,0.4);
+    }
+
+    .form-box button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(56,239,125,0.7);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+        text-align: center;
+      }
+      header nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">📖 Library Manager</div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/add">Add Book</a>
+      <a href="/books">View Books</a>
+    </nav>
+    <div>
+      <a href="/add"><button class="btn-add">+ Add Book</button></a>
+    </div>
+  </header>
+
+  <section class="form-section">
+    <div class="form-box">
+      <h1>✏️ Edit Book</h1>
+      <form method="post" action="/update-book/<%= book.bookNo %>">
+        
+        <label>Book No.</label>
+        <input type="text" name="bookNo" value="<%= book.bookNo %>" disabled>
+
+        <label>Book Name</label>
+        <input type="text" name="bookName" value="<%= book.bookName %>" required>
+
+        <label>Author</label>
+        <input type="text" name="author" value="<%= book.author %>" required>
+
+        <label>Language</label>
+        <input type="text" name="language" value="<%= book.language %>" required>
+
+        <label>Published Date</label>
+        <input type="date" name="publishedDate" value="<%= book.publishedDate %>" required>
+
+        <label>Duplicates</label>
+        <input type="number" name="duplicates" value="<%= book.duplicates %>" required>
+
+        <label>Image URL</label>
+        <input type="url" name="imageUrl" value="<%= book.imageUrl %>">
+
+        <button type="submit"> Update Book</button>
+      </form>
+    </div>
+  </section>
+
+</body>
+</html>
