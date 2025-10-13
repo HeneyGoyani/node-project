@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= movie.name %> | BookMyShow</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    /* ---------------- BODY ---------------- */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0c0c0f, #1a1a2e);
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ---------------- NAVBAR ---------------- */
+    .navbar {
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(15px);
+      padding: 1rem 2rem;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .navbar-brand {
+      color: #ff00ff !important;
+      font-weight: 800;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+      text-shadow: 0 0 10px #ff00ff77;
+    }
+
+    .nav-link {
+      color: #aaa !important;
+      margin-right: 1rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-link:hover {
+      color: #00ffff !important;
+    }
+
+    /* ---------------- MOVIE SECTION ---------------- */
+    .movie-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 80px 5%;
+      gap: 60px;
+      position: relative;
+    }
+
+    /* floating neon background circles */
+    .movie-section::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, #ff00ff33, transparent);
+      border-radius: 50%;
+      filter: blur(150px);
+      z-index: 0;
+    }
+
+    .movie-section::after {
+      content: '';
+      position: absolute;
+      bottom: -150px;
+      right: -150px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, #00ffff33, transparent);
+      border-radius: 50%;
+      filter: blur(200px);
+      z-index: 0;
+    }
+
+    .poster-card {
+      flex: 1 1 350px;
+      max-width: 400px;
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 0 40px #ff00ff66, 0 0 80px #ff00ff33 inset;
+      position: relative;
+      z-index: 1;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+    }
+
+    .poster-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .poster-card:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 60px #ff00ffaa, 0 0 100px #ff00ff55 inset;
+    }
+
+    .poster-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .details-card {
+      flex: 1 1 500px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border-radius: 30px;
+      padding: 50px 40px;
+      box-shadow: 0 0 30px #00ffff55, 0 0 60px #00ffff33 inset;
+      position: relative;
+      z-index: 1;
+      transition: transform 0.4s ease;
+    }
+
+    .details-card h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #ff00ff;
+      text-shadow: 0 0 15px #ff00ff77;
+      margin-bottom: 15px;
+    }
+
+    .age-badge {
+      display: inline-block;
+      background: #00ffff;
+      color: #000;
+      font-weight: 700;
+      border-radius: 20px;
+      padding: 6px 18px;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      text-shadow: 0 0 5px #00ffff55;
+    }
+
+    .movie-desc {
+      color: #ddd;
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 30px;
+    }
+
+    .movie-meta {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .meta-card {
+      background: rgba(0, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 18px 25px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .meta-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 0 15px #00ffff66, 0 0 30px #00ffff33 inset;
+    }
+
+    .meta-label {
+      font-size: 0.85rem;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+    }
+
+    .meta-value {
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-top: 8px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 20px;
+      margin-top: 25px;
+    }
+
+    .btn-cine {
+      flex: 1;
+      padding: 14px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      border-radius: 25px;
+      border: none;
+      transition: all 0.4s ease;
+      text-shadow: 0 0 5px #000;
+    }
+
+    .btn-book {
+      background: #ff00ff;
+      color: #fff;
+      box-shadow: 0 0 10px #ff00ff66;
+    }
+
+    .btn-book:hover {
+      background: #e600e6;
+      box-shadow: 0 0 20px #ff00ffaa;
+      transform: translateY(-3px);
+    }
+
+    .btn-back {
+      background: #00ffff;
+      color: #000;
+      box-shadow: 0 0 10px #00ffff66;
+    }
+
+    .btn-back:hover {
+      background: #00e6e6;
+      box-shadow: 0 0 20px #00ffffaa;
+      transform: translateY(-3px);
+    }
+
+    /* ---------------- FOOTER ---------------- */
+    .cine-footer {
+      text-align: center;
+      padding: 30px;
+      background: #111;
+      color: #aaa;
+      font-size: 0.95rem;
+      margin-top: 80px;
+    }
+
+    .cine-footer span {
+      color: #ff00ff;
+      text-shadow: 0 0 10px #ff00ff77;
+    }
+
+    @media (max-width: 768px) {
+      .movie-section {
+        flex-direction: column;
+        padding: 40px 20px;
+      }
+
+      .movie-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/"><i class="fas fa-film me-2"></i>BookMyShow</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNeon">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNeon">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOVIE DETAILS -->
+  <section class="movie-section">
+    <div class="poster-card">
+      <img src="<%= movie.image %>" alt="<%= movie.name %>">
+    </div>
+
+    <div class="details-card">
+      <h1><%= movie.name %></h1>
+      <div class="age-badge">Age: <%= movie.ageValidation %></div>
+      <p class="movie-desc"><%= movie.desc %></p>
+
+      <div class="movie-meta">
+        <div class="meta-card">
+          <div class="meta-label">Status</div>
+          <div class="meta-value"><%= movie.status %></div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Language</div>
+          <div class="meta-value"><%= movie.language %></div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Category</div>
+          <div class="meta-value"><%= movie.category %></div>
+        </div>
+        <div class="meta-card">
+          <div class="meta-label">Rating</div>
+          <div class="meta-value"><i class="fas fa-star text-warning"></i> <%= movie.rating %>/10</div>
+        </div>
+      </div>
+
+      <div class="meta-card" style="text-align:center; margin-bottom:25px;">
+        <div class="meta-label">Duration</div>
+        <div class="meta-value"><i class="fas fa-clock"></i> <%= movie.duration %> mins</div>
+      </div>
+
+      <div class="actions">
+        <a href="/" class="btn-cine btn-book">Book Now</a>
+        <a href="/" class="btn-cine btn-back">Back to Movies</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="cine-footer">
+    <p>© 2025 <span>BookMyShow</span> | Dive into the Book My Show world 🎬</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

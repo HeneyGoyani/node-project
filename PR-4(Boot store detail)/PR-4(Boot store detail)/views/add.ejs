@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add User</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .wrapper {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+      width: 420px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    td {
+      padding: 10px 5px;
+      font-size: 15px;
+      color: #444;
+      border: none;
+      vertical-align: middle;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="password"],
+    select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: 0.3s;
+      font-size: 14px;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    input[type="password"]:focus,
+    select:focus {
+      border-color: #2575fc;
+      box-shadow: 0 0 5px rgba(37, 117, 252, 0.3);
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      accent-color: #2575fc;
+      margin-right: 6px;
+    }
+
+    label {
+      margin-right: 8px;
+      font-size: 14px;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      background: linear-gradient(135deg, #2575fc, #6a11cb);
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+
+    input[type="submit"]:hover {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      transform: scale(1.02);
+    }
+
+    a {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      color: #2575fc;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    a:hover {
+      color: #6a11cb;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <h1>Add User</h1>
+    <form action="/insertUser" method="post">
+      <table>
+        <tr>
+          <td>Name:</td>
+          <td><input type="text" name="name"></td>
+        </tr>
+        <tr>
+          <td>Number:</td>
+          <td><input type="number" name="number"></td>
+        </tr>
+        <tr>
+          <td>Email:</td>
+          <td><input type="text" name="email"></td>
+        </tr>
+        <tr>
+          <td>Password:</td>
+          <td><input type="password" name="password"></td>
+        </tr>
+        <tr>
+          <td>Gender:</td>
+          <td>
+            <label><input type="radio" name="gender" value="male">Male</label>
+            <label><input type="radio" name="gender" value="female">Female</label>
+          </td>
+        </tr>
+        <tr>
+          <td>Hobby:</td>
+          <td>
+            <label><input type="checkbox" name="hobby" value="travelling">Travelling</label><br>
+            <label><input type="checkbox" name="hobby" value="photography">Photography</label><br>
+            <label><input type="checkbox" name="hobby" value="gaming">Gaming</label><br>
+            <label><input type="checkbox" name="hobby" value="coding">Coding</label>
+          </td>
+        </tr>
+        <tr>
+          <td>City:</td>
+          <td>
+            <select name="city">
+              <option value="">--- Select City ---</option>
+              <% 
+                let city=["surat","Ahemdabad","Rajkot","Bharuch"];
+                city.map((val)=>{ 
+              %>
+                <option><%= val %></option>
+              <% }) %>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"><input type="submit" value="Add User"></td>
+        </tr>
+      </table>
+    </form>
+
+    <a href="/view">→ View Users</a>
+  </div>
+
+</body>
+
+</html>

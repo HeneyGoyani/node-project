@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Movie — BookMyShow</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* ---------- BODY ---------- */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f0f15, #1b1b2a);
+      color: #ffffff;
+      min-height: 100vh;
+    }
+
+    /* ---------- NAVBAR ---------- */
+    .navbar {
+      background: rgba(20, 20, 30, 0.85);
+      backdrop-filter: blur(12px);
+      padding: 1rem 2rem;
+      box-shadow: 0 5px 20px rgba(0, 255, 255, 0.1);
+    }
+
+    .navbar-brand {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #59a995 !important;
+      letter-spacing: 1px;
+    }
+
+    .nav-link {
+      color: #ffffff !important;
+      margin-right: 1rem;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .nav-link:hover {
+      color: #59a995 !important;
+    }
+
+    .btn-search {
+      background: #59a995;
+      color: #0f0f15;
+      border-radius: 25px;
+      border: none;
+      padding: 0.4rem 1.2rem;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .btn-search:hover {
+      background: #59a995;
+    }
+
+    /* ---------- FORM CARD ---------- */
+    .form-container {
+      display: flex;
+      justify-content: center;
+      padding: 60px 20px;
+    }
+
+    .form-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 25px;
+      padding: 2rem;
+      max-width: 950px;
+      width: 100%;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      position: relative;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .form-header h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #59a995;
+      text-shadow: 0 0 10px #59a995, 0 0 20px #000000;
+    }
+
+    /* ---------- FORM ELEMENTS ---------- */
+    .form-label {
+      font-weight: 600;
+      color: #59a995;
+      margin-bottom: 6px;
+    }
+
+    .form-control,
+    .form-select {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid #59a995;
+      border-radius: 12px;
+      color: #000000;
+      padding: 0.7rem 1rem;
+      transition: 0.3s;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+      outline: none;
+      border-color: #59a995;
+      box-shadow: 0 0 10px #33f7ff;
+      background: rgba(255, 255, 255, 0.15);
+      color: #000000;
+    }
+
+    .form-control::placeholder {
+      color: #bbb;
+    }
+
+    .movie-icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #00f0ff;
+      opacity: 0.5;
+    }
+
+    .preview-img {
+      margin-top: 10px;
+      border-radius: 10px;
+      border: 1px solid #59a995;
+      width: 120px;
+    }
+
+    /* ---------- SUBMIT BUTTON ---------- */
+    .btn-neon {
+      background: #59a995;
+      color: #0f0f15;
+      border-radius: 15px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 0.8rem 2.5rem;
+      transition: 0.3s;
+      box-shadow: 0 0 15px #59a995, 0 0 30px #00f0ff55;
+    }
+
+    .btn-neon:hover {
+      background: #59a995;
+      box-shadow: 0 0 20px #59a995, 0 0 40px #33f7ff55;
+      transform: translateY(-2px);
+      color: #0f0f15;
+    }
+
+    /* ---------- FOOTER ---------- */
+    .form-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    .form-footer a {
+      color: #59a995;
+      text-decoration: none;
+    }
+
+    .form-footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width:768px){
+      .form-card{ padding: 1.5rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/"><i class="fas fa-video me-2"></i>BookMyShow</a>
+      <button class="navbar-toggler text-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNeon">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNeon">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/add_movie">Add Movie</a></li>
+        </ul>
+        <form class="d-flex" method="GET">
+          <input class="form-control me-2" type="search" placeholder="Search Movies..." name="q">
+          <button class="btn btn-search" type="submit"><i class="fas fa-search"></i></button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <!-- FORM CARD -->
+  <div class="form-container">
+    <div class="form-card">
+      <div class="form-header">
+        <h2><i class="fas fa-pen-to-square me-2"></i>Edit Movie</h2>
+      </div>
+
+      <form action="/edit-movie/<%= movies._id %>" method="POST" enctype="multipart/form-data" class="row g-3">
+
+        <div class="col-md-6 position-relative">
+          <label class="form-label">Movie Name</label>
+          <input type="text" class="form-control" name="name" value="<%= movies.name %>" placeholder="Enter movie name" required>
+          <div class="movie-icon"><i class="fas fa-ticket-alt"></i></div>
+        </div>
+
+        <div class="col-md-6 position-relative">
+          <label class="form-label">Movie Description</label>
+          <input type="text" class="form-control" name="desc" value="<%= movies.desc %>" placeholder="Enter movie description" required>
+          <div class="movie-icon"><i class="fas fa-align-left"></i></div>
+        </div>
+
+        <div class="col-md-4 position-relative">
+          <label class="form-label">Age Validation</label>
+          <input type="number" class="form-control" name="ageValidation" value="<%= movies.ageValidation %>" min="0" max="21" required>
+          <div class="movie-icon"><i class="fas fa-user-clock"></i></div>
+        </div>
+
+        <div class="col-md-4 position-relative">
+          <label class="form-label">Movie Image</label>
+          <input type="file" class="form-control" name="image" accept="image/*">
+          <% if (movies.image) { %>
+            <img src="<%= movies.image %>" class="preview-img" alt="Movie Poster">
+          <% } %>
+          <div class="movie-icon"><i class="fas fa-camera"></i></div>
+        </div>
+
+        <div class="col-md-4 position-relative">
+          <label class="form-label">Movie Status</label>
+          <select name="status" class="form-select">
+            <option value="Release" <%= movies.status==='Release' ? 'selected':'' %>>Release</option>
+            <option value="Re-Release" <%= movies.status==='Re-Release' ? 'selected':'' %>>Re-Release</option>
+            <option value="Pending" <%= movies.status==='Pending' ? 'selected':'' %>>Pending</option>
+          </select>
+          <div class="movie-icon"><i class="fas fa-calendar-check"></i></div>
+        </div>
+
+        <div class="col-md-6 position-relative">
+          <label class="form-label">Category</label>
+          <select name="category" class="form-select">
+            <option value="Animation" <%= movies.category==='Animation' ? 'selected':'' %>>Animation</option>
+            <option value="Comedy" <%= movies.category==='Comedy' ? 'selected':'' %>>Comedy</option>
+            <option value="Horror" <%= movies.category==='Horror' ? 'selected':'' %>>Horror</option>
+            <option value="Romance" <%= movies.category==='Romance' ? 'selected':'' %>>Romance</option>
+            <option value="Sports" <%= movies.category==='Sports' ? 'selected':'' %>>Sports</option>
+            <option value="Biography" <%= movies.category==='Biography' ? 'selected':'' %>>Biography</option>
+            <option value="Action" <%= movies.category==='Action' ? 'selected':'' %>>Action</option>
+            <option value="Drama" <%= movies.category==='Drama' ? 'selected':'' %>>Drama</option>
+            <option value="Adventure" <%= movies.category==='Adventure' ? 'selected':'' %>>Adventure</option>
+          </select>
+          <div class="movie-icon"><i class="fas fa-tags"></i></div>
+        </div>
+
+        <div class="col-md-6 position-relative">
+          <label class="form-label">Language</label>
+          <select name="language" class="form-select">
+            <option value="Hindi" <%= movies.language==='Hindi' ? 'selected':'' %>>Hindi</option>
+            <option value="English" <%= movies.language==='English' ? 'selected':'' %>>English</option>
+            <option value="Gujarati" <%= movies.language==='Gujarati' ? 'selected':'' %>>Gujarati</option>
+            <option value="Tamil" <%= movies.language==='Tamil' ? 'selected':'' %>>Tamil</option>
+            <option value="Telgu" <%= movies.language==='Telgu' ? 'selected':'' %>>Telgu</option>
+            <option value="Kannada" <%= movies.language==='Kannada' ? 'selected':'' %>>Kannada</option>
+            <option value="Bhojpuri" <%= movies.language==='Bhojpuri' ? 'selected':'' %>>Bhojpuri</option>
+            <option value="Punjabi" <%= movies.language==='Punjabi' ? 'selected':'' %>>Punjabi</option>
+            <option value="Bengali" <%= movies.language==='Bengali' ? 'selected':'' %>>Bengali</option>
+          </select>
+          <div class="movie-icon"><i class="fas fa-language"></i></div>
+        </div>
+
+        <div class="col-md-6 position-relative">
+          <label class="form-label">Duration (min)</label>
+          <input type="number" class="form-control" name="duration" value="<%= movies.duration %>" min="1" required>
+          <div class="movie-icon"><i class="fas fa-hourglass-half"></i></div>
+        </div>
+
+        <div class="col-md-6 position-relative">
+          <label class="form-label">Rating</label>
+          <input type="number" step="0.1" class="form-control" name="rating" value="<%= movies.rating %>" min="0" max="10" required>
+          <div class="movie-icon"><i class="fas fa-star"></i></div>
+        </div>
+
+        <div class="col-12 text-center mt-4">
+          <button type="submit" class="btn btn-neon"><i class="fas fa-save me-2"></i>Update Movie</button>
+        </div>
+
+      </form>
+
+      <div class="form-footer mt-4">
+        <p>© 2025 BookMyShow | Futuristic Movie Editing</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit User</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #11998e, #38ef7d);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      padding: 35px 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      width: 430px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+      text-transform: capitalize;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    td {
+      padding: 10px 5px;
+      color: #444;
+      font-size: 15px;
+      vertical-align: middle;
+      border: none;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="password"],
+    select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    input[type="password"]:focus,
+    select:focus {
+      border-color: #38ef7d;
+      box-shadow: 0 0 5px rgba(56, 239, 125, 0.4);
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      accent-color: #38ef7d;
+      margin-right: 6px;
+    }
+
+    label {
+      margin-right: 8px;
+      font-size: 14px;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      background: linear-gradient(135deg, #38ef7d, #11998e);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 15px;
+    }
+
+    input[type="submit"]:hover {
+      background: linear-gradient(135deg, #11998e, #38ef7d);
+      transform: scale(1.02);
+    }
+
+    a {
+      display: block;
+      text-align: center;
+      margin-top: 18px;
+      color: #11998e;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    a:hover {
+      color: #38ef7d;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Edit User</h1>
+
+    <form action="/updateUser" method="post">
+      <table>
+        <tr>
+          <td>Name:</td>
+          <td><input type="text" value="<%= data?.name || '' %>" name="name"></td>
+        </tr>
+
+        <tr>
+          <td>Number:</td>
+          <td><input type="number" value="<%= data?.number || '' %>" name="number"></td>
+        </tr>
+
+        <tr>
+          <td>Email:</td>
+          <td><input type="text" value="<%= data?.email || '' %>" name="email"></td>
+        </tr>
+
+        <tr>
+          <td>Password:</td>
+          <td><input type="password" value="<%= data?.password || '' %>" name="password"></td>
+        </tr>
+
+        <tr>
+          <td>Gender:</td>
+          <td>
+            <label><input type="radio" name="gender" value="male" <%= data?.gender === "male" ? "checked" : "" %>> Male</label>
+            <label><input type="radio" name="gender" value="female" <%= data?.gender === "female" ? "checked" : "" %>> Female</label>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Hobby:</td>
+          <td>
+            <% let hobbies = data?.hobby ? data.hobby : []; %>
+            <label><input type="checkbox" name="hobby" value="travelling" <%= hobbies.includes("travelling") ? "checked" : "" %>> Travelling</label><br>
+            <label><input type="checkbox" name="hobby" value="photography" <%= hobbies.includes("photography") ? "checked" : "" %>> Photography</label><br>
+            <label><input type="checkbox" name="hobby" value="gaming" <%= hobbies.includes("gaming") ? "checked" : "" %>> Gaming</label><br>
+            <label><input type="checkbox" name="hobby" value="coding" <%= hobbies.includes("coding") ? "checked" : "" %>> Coding</label>
+          </td>
+        </tr>
+
+        <tr>
+          <td>City:</td>
+          <td>
+            <select name="city">
+              <option value="">--- Select City ---</option>
+              <% let cities = ["surat","Ahemdabad","Rajkot","Bharuch"]; %>
+              <% cities.forEach(ci => { %>
+                <option value="<%= ci %>" <%= data?.city === ci ? "selected" : "" %>><%= ci %></option>
+              <% }) %>
+            </select>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2"><input type="submit" value="Update User"></td>
+        </tr>
+      </table>
+    </form>
+
+    <a href="/view">→ View Users</a>
+  </div>
+
+</body>
+
+</html>
