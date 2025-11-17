@@ -112,7 +112,7 @@ exports.sendOTP = async(req, res) => {
         let otp = otpGenerator.generate(6, {upperCaseAlphabets: false, lowerCaseAlphabets: false, specialChars: false});
 
         let message = {
-            from: 'arthkoradiya@gmail.com',
+            from: 'bharatgoyani8788@gmail.com',
             to: `${req.body.email}`,
           
             subject: "Forgot Password OTP",
